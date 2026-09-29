@@ -8,6 +8,7 @@ import {
 } from 'discord-interactions';
 import { getRandomEmoji, DiscordRequest } from './utils.js';
 import { getShuffledOptions, getResult } from './game.js';
+import { cleanupExpiredGames } from './cleanup.js';
 
 function jsonResponse(payload, status = 200) {
   return new Response(JSON.stringify(payload), {
@@ -201,6 +202,10 @@ async function handleInteraction(interaction, env, ctx) {
 }
 
 export default {
+  async scheduled(controller, env) {
+    await cleanupExpiredGames(env);
+  },
+
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname !== '/interactions' || request.method !== 'POST') {

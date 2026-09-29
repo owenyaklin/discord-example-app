@@ -3,6 +3,9 @@
 	"name": "discord-example-app",
 	"main": "app.js",
 	"compatibility_date": "2026-09-28",
+	"triggers": {
+		"crons": ["0 2 * * *"]
+	},
 	"d1_databases": [
 		{
 			"binding": "DB",
