@@ -1,6 +1,4 @@
-import 'dotenv/config';
-
-export async function DiscordRequest(endpoint, options) {
+export async function DiscordRequest(endpoint, options, token) {
   // append endpoint to root API URL
   const url = 'https://discord.com/api/v10/' + endpoint;
   // Stringify payloads
@@ -8,7 +6,7 @@ export async function DiscordRequest(endpoint, options) {
   // Use fetch to make requests
   const res = await fetch(url, {
     headers: {
-      Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+      Authorization: `Bot ${token}`,
       'Content-Type': 'application/json; charset=UTF-8',
       'User-Agent': 'DiscordBot (https://github.com/discord/discord-example-app, 1.0.0)',
     },
@@ -24,13 +22,13 @@ export async function DiscordRequest(endpoint, options) {
   return res;
 }
 
-export async function InstallGlobalCommands(appId, commands) {
+export async function InstallGlobalCommands(appId, commands, token) {
   // API endpoint to overwrite global commands
   const endpoint = `applications/${appId}/commands`;
 
   try {
     // This is calling the bulk overwrite endpoint: https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
-    await DiscordRequest(endpoint, { method: 'PUT', body: commands });
+    await DiscordRequest(endpoint, { method: 'PUT', body: commands }, token);
   } catch (err) {
     console.error(err);
   }

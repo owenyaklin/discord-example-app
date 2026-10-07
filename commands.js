@@ -46,4 +46,4 @@ const CHALLENGE_COMMAND = {
 
 const ALL_COMMANDS = [TEST_COMMAND, CHALLENGE_COMMAND];
 
-InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);
+InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS, process.env.DISCORD_TOKEN);
